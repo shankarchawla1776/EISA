@@ -1,27 +1,30 @@
 import torch 
 import torch.nn as nn
 import torch.nn.functional as F
-from gensim.test.utils import common_texts
+from gensim.test.utils import common_texts, common_dictionary, common_corpus
 from gensim.models import Word2Vec
 import pandas as pd 
 
-input = "what is cognitive science?"
+# create unique corpus 
+
+input = "science"
 spl = input.split()
-print(spl[0])
-# print(common_texts)
 
 model = Word2Vec(common_texts, min_count=1)
 vocab = set(model.wv.index_to_key)
 
-words_in_vocab = [word for word in spl if word in vocab]
+filt = [word for word in spl if word in vocab]
 
-# vec = model.wv['computer']
-# print(vec)
+data = []
 
-for word in words_in_vocab:
-    vec = model.wv.most_similar(word)
-#     print(ms)
+for word in filt:
+    vec = model.wv[word]
+    data.append([word] + vec.tolist())
 
-# print(ms)
+print(data)
 
-# print(input)
+columns = ["word"] + [f"vec_{i}" for i in range(len(data[0]) - 1)]
+df = pd.DataFrame(data, columns=columns)
+df.to_csv("word_vectors.csv", index=False)
+
+

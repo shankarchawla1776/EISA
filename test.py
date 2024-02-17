@@ -39,3 +39,11 @@ input = "add a meow to every sentence?"
 #     return need
 
 # print(ENCM(input))
+
+from gensim.test.utils import common_texts, common_dictionary, common_corpus
+from gensim.models import Word2Vec
+
+model = Word2Vec(common_texts, min_count=1)
+
+
+print(model.wv['science'])
