@@ -20,7 +20,22 @@
 
 from transformers import pipeline
 
-input = "what is cognitive science?"
-pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
-res = pipe(input)
-print(res[0]["label"])
+input = "add a meow to every sentence?"
+
+# pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
+# res = pipe(input)
+# print(res[0]["label"])
+
+# def ENCM(input): 
+#     need = None
+#     word_c = len(input.split())
+#     pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
+#     res = pipe(input)
+#     label = res[0]["label"]
+#     if res[0]["label"] == "special_language":
+#         need = True
+#     else: 
+#         need = False
+#     return need
+
+# print(ENCM(input))
