@@ -1,8 +1,8 @@
-# from LLM.llm import openaiGTPT3
 from openai import ChatCompletion
 import os 
 import openai
 from dotenv import load_dotenv
+from transformers import pipeline
 
 load_dotenv()
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
@@ -23,11 +23,21 @@ class E_I_S_A:
         )
         return chat.choices[0].message.content
 
+    def ENCM(self, input): 
+        need = None
+        word_c = len(input.split())
+        pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
+        res = pipe(input)
+        label = res[0]["label"]
+        if label == "special_language" and word_c > 20: 
+            need = True
+
+
 config = {"api_key": OPEN_AI_API_KEY}
 
-episodic_architecture = E_I_S_A(config)
-prompt = "what is cognitive science?"
+episodic_separation_architecture = E_I_S_A(config)
+input = "what is cognitive science?"
 
 
-generated_response = episodic_architecture.episodic_interaction(prompt)
+generated_response = episodic_separation_architecture.episodic_interaction(input)
 print("Generated Response:", generated_response)
