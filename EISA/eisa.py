@@ -8,29 +8,26 @@ load_dotenv()
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
 openai.api_key = OPEN_AI_API_KEY
 
-class E_I_S_A: 
+class E_I_S_A:
+    def __init__(self, config={"api_key": OPEN_AI_API_KEY}) -> None:
+        self.config = config
 
-    def __init__(self, config =  {"api_key": OPEN_AI_API_KEY}) -> None: 
-        self.config = config 
-        self.chat = openai.ChatCompletion.create(
-            model = "gpt-3.5-turbo",
-            api_key=config[OPEN_AI_API_KEY], 
+    def episodic_interaction(self, prompt):
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            api_key=OPEN_AI_API_KEY,
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "Hello, how are you?"}
-            ])
+                {"role": "user", "content": prompt},
+            ]
+        )
+        return chat.choices[0].message.content
 
-    def episodic_interaction(self, prompt, response): 
-        pair = f"{prompt}\nUser: {response}"
-        chat_response = self.chat.complete(pair)
-
-        self.chat.append_interaction(pair, chat_response)
-
-config = {OPEN_AI_API_KEY: "your_api_key_here"}
+config = {"api_key": OPEN_AI_API_KEY}
 
 episodic_architecture = E_I_S_A(config)
-prompt = "Hello, how are you?"
+prompt = "what is cognitive science?"
 
-response = "I'm doing well, thank you. How about you?"
-generated_response = episodic_architecture.episodic_interaction(prompt, response)
+
+generated_response = episodic_architecture.episodic_interaction(prompt)
 print("Generated Response:", generated_response)
