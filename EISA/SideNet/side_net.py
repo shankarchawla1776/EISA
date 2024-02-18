@@ -31,3 +31,13 @@ class SideNet:
 # data.append([input] + vec2.tolist())
 # # print(data)
 # print(common_texts)
+input = "what is a human computer interface"
+spl = input.split()
+model = Word2Vec(common_texts, min_count=1)
+vocab = set(model.wv.index_to_key)
+filt = [word for word in spl if word in vocab]
+data = []
+for word in filt:
+    vec = model.wv[word]
+    data.append([word] + vec.tolist())
+print(data)
