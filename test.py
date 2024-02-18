@@ -20,7 +20,7 @@
 
 from transformers import pipeline
 
-input = "add a meow to every sentence?"
+# input = "add a meow to every sentence?"
 
 # pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
 # res = pipe(input)
@@ -43,12 +43,12 @@ input = "add a meow to every sentence?"
 from gensim.test.utils import common_texts, common_dictionary, common_corpus
 from gensim.models import Word2Vec
 
-model = Word2Vec(common_texts, min_count=1)
+# model = Word2Vec(common_texts, min_count=1)
 
 
-v_i = model.wv['computer']
-v_j = model.wv['interface']
-print(v_i)
+# v_i = model.wv['computer']
+# v_j = model.wv['interface']
+# print(v_i)
 
 # sim = [-0.01224489 -0.0051019  -0.01572524  0.01780059  0.00604672 -0.00021467
 #  -0.00015149  0.00015459  0.00094365  0.00457083 -0.00679132  0.00097008
@@ -111,3 +111,31 @@ print(v_i)
 #   0.00140809 -0.00585215 -0.00783678  0.00123305  0.00645651  0.00555797
 #  -0.00897966  0.00859466  0.00404816  0.00747178  0.00974917 -0.0072917
 #  -0.00904259  0.0058377   0.00939395  0.00350795]
+
+input = "what is a human computer interface"
+model = Word2Vec(common_texts, min_count=1)
+vocab = set(model.wv.index_to_key)
+spl = input.split()
+filt_mem = [word for word in spl if word in vocab]
+        
+def SideNet():  
+    db = []
+    db.extend([model.wv['computer'], model.wv['interface']])
+    data = []
+    for word in filt_mem:
+        vec = model.wv[word]
+        data.append([word] + vec.tolist())  
+        def Search():
+            sim_search = []
+            for v in db:
+                for j in data: 
+                    sim_search.append(abs(v - j))
+                for k in sim_search: 
+                    final_search = []
+                    # if k < 0.5:
+                    #     final_search.append(k)
+                    #     return final_search 
+                    final_search.append(k)
+                    return final_search
+                    
+print(SideNet())

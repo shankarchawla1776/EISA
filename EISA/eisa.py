@@ -32,19 +32,30 @@ class E_I_S_A:
         vocab = set(model.wv.index_to_key)
         spl = input.split()
         filt_mem = [word for word in spl if word in vocab]
+        
         def SideNet():  
+            db = []
+            db.extend(model.wv['computer'], model.wv['interface'])
             data = []
             for word in filt_mem:
                 vec = model.wv[word]
                 data.append([word] + vec.tolist())  
-            input
+            def Search():
+                sim_search = []
+                for v in db:
+                    for j in data: 
+                        sim_search.extend(abs(v - j))
+                for k in sim_search: 
+                    final_search = []
+                    if k < 0.5:
+                        final_search.extend(k)
+                        return final_search 
         need = None
         word_c = len(input.split())
         pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
         res = pipe(input)
         if res[0]["label"] == "special_language":
             need = True
-
         else: 
             need = False
         if need: 
