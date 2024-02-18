@@ -6,25 +6,28 @@ from gensim.models import Word2Vec
 import pandas as pd 
 
 # create unique corpus 
-
-input = "science"
-spl = input.split()
-
-model = Word2Vec(common_texts, min_count=1)
-vocab = set(model.wv.index_to_key)
-
-filt = [word for word in spl if word in vocab]
-
-data = []
-
-for word in filt:
-    vec = model.wv[word]
-    data.append([word] + vec.tolist())
-
-print(data)
-
-columns = ["word"] + [f"vec_{i}" for i in range(len(data[0]) - 1)]
-df = pd.DataFrame(data, columns=columns)
-df.to_csv("word_vectors.csv", index=False)
+class SideNet: 
+    def SideNet():
+        input = "what is a human computer interface"
+        spl = input.split()
+        model = Word2Vec(common_texts, min_count=1)
+        vocab = set(model.wv.index_to_key)
+        filt = [word for word in spl if word in vocab]
+        data = []
+        for word in filt:
+            vec = model.wv[word]
+            data.append([word] + vec.tolist())
+        print(data)
 
 
+
+# columns = ["word"] + [f"vec_{i}" for i in range(len(data[0]) - 1)]
+# df = pd.DataFrame(data, columns=columns)
+# df.to_csv("word_vectors.csv", index=False)
+
+
+
+# vec2 = model.wv[input]
+# data.append([input] + vec2.tolist())
+# # print(data)
+# print(common_texts)

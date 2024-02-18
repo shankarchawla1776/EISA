@@ -33,6 +33,7 @@ class E_I_S_A:
         res = pipe(input)
         if res[0]["label"] == "special_language":
             need = True
+            data = SideNet(input)
         else: 
             need = False
 
