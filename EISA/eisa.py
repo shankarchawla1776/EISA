@@ -36,12 +36,12 @@ class E_I_S_A:
 
         def SideNet():  
             db = []
-            db.extend(model.wv['computer'], model.wv['interface'])
+            db.extend(model.wv['computer'], model.wv['interface']) # FIXME: Add a route to acess the prompts instead of the extension
             data = []
             for word in filt_mem:
                 vec = model.wv[word]
                 data.append([word] + vec.tolist())  
-            def Search(): 
+            def Search(test_episodes): 
                 sim = []
                 final_search = []
                 for db_entry in db: 
@@ -65,6 +65,7 @@ class E_I_S_A:
                     most_similar_episode = episode
                     max_similarity_score = similarity_score
                 return most_similar_episode
+            Search(test_episodes)
             
         need = None
         word_c = len(input.split())
@@ -83,7 +84,7 @@ class E_I_S_A:
 config = {"api_key": OPEN_AI_API_KEY}
 
 episodic_separation_architecture = E_I_S_A(config)
-input = "what is cognitive science?"
+input = "what exactly is a human being?"
 test_episodes = ["Is a human a prompter?", "Is a dog a listener?", "Is a cat a speaker?"]
 
 generated_response = episodic_separation_architecture.episodic_interaction(input)
