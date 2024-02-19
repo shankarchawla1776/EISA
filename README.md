@@ -1,5 +1,7 @@
 # EISA
 An open-source example of the Episodic Interaction Seperation Architecture (EISA) for episodic memory encodings in LLMs.
+### System architecure 
+
 
 ### Peusdo-code architecure
 
