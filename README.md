@@ -6,6 +6,8 @@ Extrapolating from Tulving's theories on sematnic, episodic, and procedural memo
 
 Upon an LLM prompt, the SideNet's iternalized informaiton (a word vector) will be contrasted with relevant information from a given prompt. Episodes are then retrived and fed to the LLM. Every retrival creates a new episodic memory which can then be referenced in future retrivals, allowing for the more complex, chronological organization of episodes. 
 
+### More information is coming soon
+
 ### Tentative Peusdo-code Architecure
 
 ![Screenshot 2024-02-16 at 10 35 12 PM](https://github.com/shankarchawla1776/EISA/assets/139474458/eec4f80e-3d3e-43e8-85f8-0d5c0967b580)
