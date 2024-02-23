@@ -142,3 +142,4 @@
 
 from vectors.word_vecs import model
 print(model)
+west = 1
