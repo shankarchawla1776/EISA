@@ -8,5 +8,4 @@ vocab = set(model.wv.index_to_key)
 spl = generated_response.split()
 filt_mem = [word for word in spl if word in vocab]
 
-print(generated_response)
 

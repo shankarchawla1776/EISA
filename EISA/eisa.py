@@ -4,12 +4,12 @@ import openai
 from dotenv import load_dotenv
 from transformers import pipeline
 import sys
-# from SideNet.side_net import SideNet
 from gensim.test.utils import common_texts, common_dictionary, common_corpus
 from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity 
-from word_vecs.word_vecs import model, vocab
+from word_vecs.word_vecs import model
+
 
 load_dotenv()
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
