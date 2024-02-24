@@ -1,16 +1,14 @@
 from openai import ChatCompletion
 import os 
 import openai
-
-
 from dotenv import load_dotenv
 from transformers import pipeline
 from gensim.test.utils import common_texts, common_dictionary, common_corpus
 from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity 
-from vectors.word_vecs import model, vocab
-
+from components.mem.norm_mem import test
+from word_vectors.word_vecs import model, vocab
 
 load_dotenv()
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
@@ -51,15 +49,8 @@ class E_I_S_A:
                 vec = model.wv[word]
                 data.append([word] + vec.tolist())  
             def Search(test_episodes): 
-                # sim = []
                 final_search = []
-                # for db_entry in db: 
-                #     for data_entry in data: 
-                #         sim.append([abs(db_val - data_val) for db_val, data_val in zip(db_entry[1:], data_entry[1:])])
-                # for k in sim: 
-                #     if any(diff < 0.00005 for diff in k): 
-                #         final_search.append(k)
-                # if final_search:
+
                 average_vector = np.mean(final_search, axis=0)
                 most_similar_episode = None
                 max_similarity_score = -1
