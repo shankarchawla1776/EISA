@@ -1,0 +1,6 @@
+gensim
+numpy
+openai
+pinecone-client
+sklearn
+transformers
