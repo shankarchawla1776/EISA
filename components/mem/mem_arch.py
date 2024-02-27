@@ -1,5 +1,7 @@
 from word_vectors.word_vecs import model, vocab
 
+weights = {} 
+
 class mem_arch:
     def __init__(self, input_text):
         self.input_text = input_text
@@ -13,7 +15,6 @@ class mem_arch:
             self.mem.append([word] + vec.tolist())
 
     def cron_weight(self): 
-        weights = {} 
         n = len(self.mem)
         for i, item in enumerate(self.mem):
             if i == 0:
