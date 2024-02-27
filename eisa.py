@@ -7,7 +7,7 @@ from gensim.test.utils import common_texts, common_dictionary, common_corpus
 from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity 
-from components.mem.norm_mem import test
+from components.mem.mem_arch import mem_arch
 from word_vectors.word_vecs import model, vocab
 
 load_dotenv()
