@@ -12,4 +12,4 @@ Upon an LLM prompt, the SideNet's iternalized informaiton (a word vector) will b
 ```
 components/mem/mem_arch.py
 ```
-This method combats common issues like memory staleness. This approach attributed an integer weight to every episode within the episodic memory bank (e$\in$E). This is where the most chronologcially dated element has a weight 1 and the newest has weight n (len(self.mem)). This weight is then considered during retrival. As $\omega_{i} \rightarrow 1$, $p_{retrival} \rightarrow 0$ This probability will fluxuate 
+This method combats common issues like memory staleness. This approach attributed an integer weight to every episode within the episodic memory bank (e $\in E_{m}$). This is where the most chronologcially dated element has a weight 1 and the newest has weight n (len(self.mem)). This weight is then considered during retrival. As $\omega_{i} \rightarrow 1$, $p_{retrival} \rightarrow 0$ This probability will fluxuate 
