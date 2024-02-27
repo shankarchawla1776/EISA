@@ -13,6 +13,7 @@ Upon an LLM prompt, the SideNet's iternalized informaiton (a word vector) will b
 ```
 components/mem/mem_arch.py
 ```
-This method combats common issues like memory staleness by encuring that the chronology of memory encodings is recorded. Each episode is attributed a chronology weight which is considered during retrival. The most recent episode will have a weight of $n$ (where $n =$ len(self.mem)) and the most chronologically dated element will have a chronology weight of 1. 
+This method combats common issues like memory staleness by encuring that the chronology of memory encodings is recorded. Each episode is attributed a chronology weight which is considered during retrival. The most recent episode will have a weight of $n$ (where $n =$ ```len(self.mem)```) and the most chronologically dated element will have a chronology weight of 1. 
 
-If an episode is retrived, it is then pushed to the top of the chronological list with a weight of $n-1$ just behind the newly formed episode. For example if a prompt, response pair with weight 4 are retrived as well as a pair with weight 6, the new prompt and response are stored with weight n, the pair forermly with weight 6 are now stored with weight $n-1$ and the other is stored with weight $n-2$
+If an episode is retrived, it is then pushed to the top of the chronological list with a weight of $n-1$ just behind the newly formed episode. For example if a prompt, response pair with weight 4 are retrived as well as a pair with weight 6, the new prompt and response are stored with weight n, the pair forermly with weight 6 are now stored with weight $n-1$ and the other is stored with weight $n-2$.
+
