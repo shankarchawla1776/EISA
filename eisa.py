@@ -8,7 +8,8 @@ from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity 
 from components.mem.mem_arch import mem_arch
-from word_vectors.word_vecs import model, vocab
+from database.word_vecs import model, vocab
+
 
 load_dotenv()
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
@@ -20,11 +21,27 @@ class E_I_S_A:
         self.config = config
 
 
-    def episodic_interaction(self, prompt):
-        search_result = self.ENCM(prompt)
+        
+    def ENCM(self, input): 
+        def SideNet(input_text): 
+            word_vector_processor = mem_arch(input_text)
+            word_vector_processor.process_word_vectors()
+            return word_vector_processor.mem
+        vectors = None
+        pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
+        res = pipe(input)
+        if res[0]["label"] == "special_language":
+            need = True
+        else: 
+            need = False
+        if need:
+            vectors = self.SideNet(input)
+
+    def LLM(self, input):
+        search_result = self.ENCM(input)
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}, 
+            {"role": "user", "content": input}, 
         ]
         if search_result is not None: 
             messages.append({"role": "system", "content": search_result})
@@ -36,64 +53,18 @@ class E_I_S_A:
 
         return chat.choices[0].message.content
 
-    def ENCM(self, input): 
 
-        spl = input.split()
-        filt_mem = [word for word in spl if word in vocab]
-
-        def SideNet():  
-            db = []
-            db.extend([model.wv['computer'], model.wv['interface']]) # FIXME: Add a route to acess the prompts instead of the extension
-            data = []
-            for word in filt_mem:
-                vec = model.wv[word]
-                data.append([word] + vec.tolist())  
-            def Search(test_episodes): 
-                final_search = []
-
-                average_vector = np.mean(final_search, axis=0)
-                most_similar_episode = None
-                max_similarity_score = -1
-
-                for episode in test_episodes:
-                    spl_1 = episode.split()
-                    filt_epi = [word for word in spl_1 if word in vocab]
-                    episode_vector = np.mean([model.wv[word] for word in filt_epi], axis=0)
-
-                if not np.isnan(episode_vector).any():
-                            
-                    similarity_score = cosine_similarity([episode_vector], [average_vector])[0][0]
-
-                    if similarity_score > max_similarity_score:
-                        most_similar_episode = episode
-                        max_similarity_score = similarity_score
-
-                    return most_similar_episode
-                return None
-                # else: 
-                #     return None
-            return Search(test_episodes)
-            
-        need = None
-        word_c = len(input.split())
-        pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
-        res = pipe(input)
-        if res[0]["label"] == "special_language":
-            need = True
-        else: 
-            need = False
-        if need: 
-            SideNet()
-
-  
-        
+   
 
 config = {"api_key": OPEN_AI_API_KEY}
 
-episodic_separation_architecture = E_I_S_A(config)
-input = "what exactly is a human being?"
-test_episodes = ["Is a human a prompter?", "Is a dog a listener?", "Is a cat a speaker?"]
 
-generated_response = episodic_separation_architecture.episodic_interaction(input)
+# episodic_separation_architecture = E_I_S_A(config)
+
+# input = "what exactly is a human being?"
+
+generated_response = E_I_S_A.LLM("what exactly is a human being?")
 print("Generated Response:", generated_response)
+# generated_response = episodic_separation_architecture.LLM(input)
+# print("Generated Response:", generated_response)
 

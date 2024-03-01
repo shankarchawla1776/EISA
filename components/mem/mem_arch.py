@@ -1,18 +1,21 @@
-from word_vectors.word_vecs import model, vocab
+from sklearn.feature_extraction.text import CountVectorizer
 
-weights = {} 
+weights = {}
 
 class mem_arch:
     def __init__(self, input_text):
         self.input_text = input_text
-        self.spl = input_text.split()
-        self.filt = [word for word in self.spl if word in vocab]
+        self.vectorizer = CountVectorizer()
+        self.vectorizer.fit([input_text])
+        self.vocab = self.vectorizer.get_feature_names_out()
+        self.word_counts = self.vectorizer.transform([input_text]).toarray().flatten()
         self.mem = []
 
     def process_word_vectors(self):
-        for word in self.filt:
-            vec = model.wv[word]
-            self.mem.append([word] + vec.tolist())
+        for word, count in zip(self.vocab, self.word_counts):
+            vec = [0] * len(self.vocab)
+            vec[self.vectorizer.vocabulary_[word]] = count
+            self.mem.append([word] + vec)
 
     def cron_weight(self): 
         n = len(self.mem)
