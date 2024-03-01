@@ -8,7 +8,7 @@ from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity 
 from components.mem.mem_arch import mem_arch
-from database.word_vecs import model, vocab
+
 
 
 load_dotenv()
