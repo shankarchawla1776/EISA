@@ -23,6 +23,13 @@ class mem_arch:
 
     def cron_weight(self): 
         n = len(self.mem)
+        """ 
+        Attributes chonrological weights to word vectors where:
+        Priotiry 1 has weight n 
+        Priotirty 2 has weight n - 1
+        ...
+        Priotirty n has weight 1
+        """
         for i, item in enumerate(self.mem):
             if i == 0:
                 weights[tuple(item)] = n
