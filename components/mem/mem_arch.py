@@ -50,10 +50,13 @@ class mem_arch:
         index = pc.Index(index_name)
         for item in self.mem:
             word, vector = item[0], item[1:]
-            vector_dict = {"values": vector}
+            vector_dict = {
+            "id": word,
+            "values": vector
+            }
             print(f"Vector Dictionary: {vector_dict}")
             try:
-                index.upsert([{ "id": word, "vector": vector_dict }], namespace=namespace)
+                index.upsert([vector_dict], namespace=namespace)
             except PineconeApiException as e:
                 print(f"Error upserting vector for word '{word}': {e}")
                 continue
