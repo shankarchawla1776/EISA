@@ -16,26 +16,31 @@ OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
 openai.api_key = OPEN_AI_API_KEY
 # model = Word2Vec(common_texts, min_count=1)
 # vocab = set(model.wv.index_to_key)
-class E_I_S_A:
+class EISA:
     def __init__(self, config={"api_key": OPEN_AI_API_KEY}) -> None:
         self.config = config
 
 
         
+
+    def SideNet(self, input): 
+
     def ENCM(self, input): 
-        def SideNet(input_text): 
-            word_vector_processor = mem_arch(input_text)
-            word_vector_processor.process_word_vectors()
-            return word_vector_processor.mem
-        vectors = None
-        pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
-        res = pipe(input)
-        if res[0]["label"] == "special_language":
-            need = True
-        else: 
-            need = False
-        if need:
-            vectors = self.SideNet(input)
+        # def SideNet(input_text): 
+
+
+        #     word_vector_processor = mem_arch(input_text)
+        #     word_vector_processor.process_word_vectors()
+        #     return word_vector_processor.mem
+        # vectors = None
+        # pipe = pipeline("text-classification", model="krupper/text-complexity-classification")
+        # res = pipe(input)
+        # if res[0]["label"] == "special_language":
+        #     need = True
+        # else: 
+        #     need = False
+        # if need:
+        #     vectors = self.SideNet(input)
 
     def LLM(self, input):
         search_result = self.ENCM(input)
@@ -63,7 +68,7 @@ config = {"api_key": OPEN_AI_API_KEY}
 
 # input = "what exactly is a human being?"
 
-generated_response = E_I_S_A.LLM("what exactly is a human being?")
+generated_response = EISA.LLM("what exactly is a human being?")
 print("Generated Response:", generated_response)
 # generated_response = episodic_separation_architecture.LLM(input)
 # print("Generated Response:", generated_response)
